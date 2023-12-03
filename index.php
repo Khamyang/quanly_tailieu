@@ -119,18 +119,43 @@ include "connect/connect.php";
             <?php
             if (isset($_GET['page'])) {
                 $page = $_GET['page'];
+                if($page == "quan_ly_phong"){
+                    if($log_quyen == 1){
+                        $header_title = "<span>Quản lý Phòng ban</span>";
+                    } else {
+                        $header_title = "<span>Danh sách Phòng ban</span>";
+                    }
+                } else if($page == "chi_tiet_phong"){
+                    $Get_Ma_Phong = $_GET['phong'];
+                    $sql_title_phong = mysqli_query($conn, "SELECT Ten_Phong FROM tb_phong WHERE Ma_Phong = $Get_Ma_Phong");
+                    $res_title_phong = mysqli_fetch_object($sql_title_phong);
+
+                    $header_title = "<span>".$res_title_phong->Ten_Phong."</span>";
+                } else if($page == "chi_tiet_thu_muc"){
+                    $Get_Ma_Thu_Muc = $_GET['thu_muc'];
+                    $sql_title_thu_muc = mysqli_query($conn, "SELECT Ten_thu_muc FROM tb_thu_muc WHERE Ma_Thu_Muc = $Get_Ma_Thu_Muc");
+                    $res_title_thu_muc = mysqli_fetch_object($sql_title_thu_muc);
+
+                    $header_title = "<span><img src='assets/image/folder_icon.png' alt='' width='35'>&nbsp;".$res_title_thu_muc->Ten_thu_muc."</span>";
+                }
+                else if($page == "quan_ly_nhan_vien"){
+                    $header_title = "<span>Quản lý Nhân viên</span>";
+                } else {
+                    $header_title = "<span>Hệ thống Quản lý tài liệu</span>";
+                }
             } else {
                 $page = "";
+                $header_title = "<span>Quản lý Phòng ban</span>";
             }
             ?>
             <div class="sidebar_menu">
                 <!-- <ul> -->
                 <li
                     class=" p-2 <?= ($page == "" || $page == "quan_ly_phong" || $page == "chi_tiet_phong" || $page == "chi_tiet_thu_muc") ? "bg-warning" : ""; ?>">
-                    <a href="?page=quan_ly_phong"><i class="fa fa-list"></i> Quản lý Phòng ban</a>
+                    <a href="?page=quan_ly_phong"><i class="fa fa-list"></i> <?=($log_quyen == 1) ? 'Quản lý Phòng ban':'Danh sách Phòng ban'?></a>
                 </li>
                 <li class="p-2 <?= ($page == "quan_ly_nhan_vien") ? "bg-warning" : ""; ?>"><a
-                        href="?page=quan_ly_nhan_vien"><i class="fa fa-user"></i> Quản lý Nhân viên</a></li>
+                        href="?page=quan_ly_nhan_vien"><i class="fa fa-user"></i> <?=($log_quyen == 1) ? 'Quản lý Nhân viên':'Danh sách Nhân viên'?></a></li>
                 <!-- </ul> -->
                 <li class="p-2 "><a class="alert-secondary rounded-start text-danger" href="?page=dang_xuat"
                         style="position: absolute;right: 0;bottom:0"><i class="fa fa-sign-out text-danger"
@@ -141,10 +166,10 @@ include "connect/connect.php";
         <div class="content">
             <div class="container ps-3">
                 <article>
-                    <div class="content_header p-2">
+                    <div class="content_header p-2 ">
                         <div class="rounded border p-2 d-flex justify-content-between bg-white">
-                            <div>
-                                <h3><i class="fa fa-menu" aria-hidden="true"></i>Quản lý Phòng</h3>
+                            <div >
+                                <h4 class="p-0 m-0"><?=$header_title?></h4>
                             </div>
                             <div class="d-flex align-items-end">Chào: <span
                                     class="text-danger"><?=$log_ten_dang_nhap?></span></div>

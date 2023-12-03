@@ -82,15 +82,17 @@ tr {
             <div class="p-3" id="div_btn_them_tep_tin">
                 <form action="#">
                     <input type="hidden" id="ma_thu_muc" value="<?=$_GET['thu_muc']?>">
-                    <div class="alert-success rounded d-flex" style="width: 10%;position:relative">
+                    <div class="rounded d-flex" style="width: 10%;">
                         <img src="assets/image/add_file.png" alt="" width="45" id="btn_them_tep_tin"
-                            style="border: 2px dashed #6990F2;border-radius: 5px;padding:5px;width:50%"
+                            style="margin: 10px;box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;margin: 4px;padding: 4px"
                             title="Upload file">
                         <input class="file-input" type="file" name="file" hidden>
-                        <img src="assets/image/recycle.png" alt="" style="color:#6990F2;width:50px;height:50px"
+                        <div style="position: relative;">
+                        <img src="assets/image/recycle.png" alt="" style="color:#6990F2;width:45px;height:45px;margin: 4px;box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;padding: 4px;"
                             data-bs-toggle="modal" data-bs-target="#modal_recycle">
+                            <div class="tong_xoa"><?=$alert_?></div>
+                            </div>
                         
-                        <div class="tong_xoa"><?=$alert_?></div>
                     </div>
                 </form>
                 <div>
@@ -329,7 +331,27 @@ function xoa_khoi_phuc_all(action,ma_thu_mua) {
 $(document).ready(function() {
 
     var table = $('#tb_quan_ly_nhan_vien').DataTable({
+        lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, "ALL"]
+            ],
         // scrollX: true,
+        "language": {
+            "search": "Tìm kiếm_INPUT_"
+        },
+        "oLanguage": {
+                "sLengthMenu": "Hiện thị _MENU_",
+                "sZeroRecords": "Không có dữ liệu",
+                "sInfo": "Hiện thị _START_ Đến _END_ tất cả _TOTAL_ Danh sách",
+                "sInfoEmpty": "Hiện thị 0 Đến 0 Của 0",
+                "sInfoFiltered": "(Tất cả _MAX_ Danh sách)",
+                "oPaginate": {
+                    "sFirst": "Trang đầu",
+                    "sLast": "Trang cuối",
+                    "sNext": "Tiếp",
+                    "sPrevious": "Trước"
+                }
+            },
     });
     table.buttons().container()
         .appendTo('#example_wrapper .col-md-6:eq(0)');
@@ -337,7 +359,27 @@ $(document).ready(function() {
 $(document).ready(function() {
 
     var table = $('#tb_recycle').DataTable({
+        lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, "ALL"]
+            ],
         // scrollX: true,
+        "language": {
+            "search": "Tìm kiếm_INPUT_"
+        },
+        "oLanguage": {
+                "sLengthMenu": "Hiện thị _MENU_",
+                "sZeroRecords": "Không có dữ liệu",
+                "sInfo": "Hiện thị _START_ Đến _END_ tất cả _TOTAL_ Danh sách",
+                "sInfoEmpty": "Hiện thị 0 Đến 0 Của 0",
+                "sInfoFiltered": "(Tất cả _MAX_ Danh sách)",
+                "oPaginate": {
+                    "sFirst": "Trang đầu",
+                    "sLast": "Trang cuối",
+                    "sNext": "Tiếp",
+                    "sPrevious": "Trước"
+                }
+            },
     });
     table.buttons().container()
         .appendTo('#example_wrapper .col-md-6:eq(0)');
@@ -388,7 +430,7 @@ function uploadFile(name) {
                     location.reload();
                 }, 1500)
             } else {
-                swal_err('Thêm tệp tin không thành công', '')
+                swal_err(x.title,x.msg)
             }
         } else {
             swal_err('Thêm tệp tin không thành công', '')

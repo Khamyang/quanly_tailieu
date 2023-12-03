@@ -14,6 +14,9 @@
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
     </script>
     <style>
+        body {
+        font-family: 'Times New Roman', Times, serif;
+    }
     .login {
         width: 800px;
         margin: auto;

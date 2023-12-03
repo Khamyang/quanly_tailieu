@@ -1,30 +1,30 @@
 <section class="p-2">
     <div class="card">
         <div>
+            <?php if($log_quyen == 1) {?>
             <div class="col-md-12 p-3">
-                <?php if($log_quyen == 1) {?>
                 <div id="div_btn_them_phong">
                     <span class="btn btn-primary" id="btn_them_phong"><i class="fa fa-add"></i> Thêm phòng</span>
                 </div>
-                <?php }?>
                 <div class="col-md-12" id="div_them_phong" style="display: none;">
                     <div class="btn-group w-100" role="group" aria-label="Basic mixed styles example">
-                        <button type="button" class="btn border border-success p-0" style="width: 90%;"><input
+                        <button type="button" class="btn border p-0" style="width: 90%;"><input
                                 type="text" class="form-control rounded-0" placeholder="Nhập tên phòng"
                                 id="ten_phong"></button>
-                        <button type="button" class="btn btn-success" id="btn_luu_them_phong" style="width: 5%;"><i
-                                class="fa fa-save text-white" style="width:50%;font-size: 20px"></i></button>
-                        <button type="button" class="btn btn-danger" id="btn_huy_them_phong" style="width: 5%;"><i
-                                class="fa fa-close text-white" style="width: 100%;font-size: 20px"></i></button>
+                        <button type="button" class="btn border btn-light" id="btn_luu_them_phong" style="width: 5%;"><i
+                                class="fa fa-save text-success" style="width:50%;font-size: 20px"></i></button>
+                        <button type="button" class="btn border btn-light" id="btn_huy_them_phong" style="width: 5%;"><i
+                                class="fa fa-close text-danger" style="width: 100%;font-size: 20px"></i></button>
                     </div>
                 </div>
             </div>
             <hr class="m-0">
+            <?php }?>
             <div class="p-3">
                 <div class="row">
                     <?php 
                     $arr = [];
-                    $sql ="SELECT * FROM tb_phong";
+                    $sql ="SELECT * FROM tb_phong ORDER BY Ma_Phong DESC";
                     $query = mysqli_query($conn, $sql);
                     if($query->num_rows > 0){
                         while($row = mysqli_fetch_object($query)){
@@ -34,7 +34,7 @@
                         <div class="p-2 alert-success">
                             <div class="btn-group w-100" role="group" aria-label="Basic mixed styles example">
                                 <button type="button"
-                                    onclick="window.location.href='?page=chi_tiet_phong&phong=<?=$row->Ma_Phong?>&list=1'"
+                                    onclick="window.open('index.php?page=chi_tiet_phong&phong=<?=$row->Ma_Phong?>&list=1','_blank')"
                                     class="btn border border-white p-2 text-start ps-2 btn_ten_phong<?=$row->Ma_Phong?>"
                                     style="width: 100%;"><?=$row->Ten_Phong?></button>
                                 <?php if($log_quyen == 1) {?>
